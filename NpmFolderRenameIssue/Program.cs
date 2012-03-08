@@ -29,15 +29,17 @@ namespace NpmFolderRenameIssue
 
             for (; ; )
             {
-                // Now do a simple existence test. It should also be true, but when running on a (cross machine) UNC share,
-                // it takes almost 5 seconds to become true!
+                // Now do a simple existence test. It should also be true, but when
+                // running on a (cross machine) UNC share, it takes almost 5 seconds to become true!
                 if (File.Exists("test/test2/myfile")) break;
 
-                Console.WriteLine("After {0} milliseconds, test/test2/myfile doesn't show as existing", (DateTime.UtcNow - start).TotalMilliseconds);
+                Console.WriteLine("After {0} milliseconds, test/test2/myfile doesn't show as existing",
+                    (DateTime.UtcNow - start).TotalMilliseconds);
                 Thread.Sleep(100);
             }
 
-            Console.WriteLine("After {0} milliseconds, test/test2/myfile correctly shows as existing!", (DateTime.UtcNow - start).TotalMilliseconds);
+            Console.WriteLine("After {0} milliseconds, test/test2/myfile correctly shows as existing!",
+                (DateTime.UtcNow - start).TotalMilliseconds);
             Console.ReadLine();
         }
     }
