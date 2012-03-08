@@ -14,6 +14,9 @@ namespace NpmFolderRenameIssue
                 buf[n] = 66;
             }
 
+            // This file should not exist yet
+            Console.WriteLine("Exists (should be false): " + File.Exists("test/test2/file20"));
+
             // Create a directory with 20 files
             Directory.CreateDirectory("test");
             Directory.CreateDirectory("test/subdir");
@@ -34,7 +37,7 @@ namespace NpmFolderRenameIssue
             }
 
             // This file should now be there
-            Console.WriteLine(File.Exists("test/test2/file20"));
+            Console.WriteLine("Exists (should be true): " + File.Exists("test/test2/file20"));
         }
     }
 }
