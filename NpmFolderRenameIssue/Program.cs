@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 
 namespace NpmFolderRenameIssue
 {
@@ -30,14 +31,24 @@ namespace NpmFolderRenameIssue
             // Rename the directory
             Directory.Move("test/subdir/test", "test/test2");
 
+            var start = DateTime.UtcNow;
+
             // Read the directory
             foreach (var path in Directory.GetFiles("test/test2"))
             {
                 Console.WriteLine(path);
             }
 
-            // This file should now be there
-            Console.WriteLine("Exists (should be true): " + File.Exists("test/test2/file20"));
+            for (; ; )
+            {
+                if (File.Exists("test/test2/file20")) break;
+
+                Console.WriteLine("After {0} milliseconds, test/test2/file20 doesn't show as existing", (DateTime.UtcNow - start).TotalMilliseconds);
+                Thread.Sleep(100);
+            }
+
+            Console.WriteLine("After {0} milliseconds, test/test2/file20 correctly shows as existing!", (DateTime.UtcNow - start).TotalMilliseconds);
+            Console.ReadLine();
         }
     }
 }
